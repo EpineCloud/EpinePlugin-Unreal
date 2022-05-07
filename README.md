@@ -1,3 +1,8 @@
+# Intro
+
+Architecture is taken from https://github.com/getnamo/SocketIOClient-Unreal
+
+
 # Description
 
 - `EpinePlugin` - Plugin itself
