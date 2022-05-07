@@ -1,0 +1,3 @@
+[submodule "Source/ThirdPartyLibraries/EpineSDK"]
+	path = Source/ThirdPartyLibraries/EpineSDK
+	url = git@github.com:EpineCloud/epine-sdk-cpp.git
