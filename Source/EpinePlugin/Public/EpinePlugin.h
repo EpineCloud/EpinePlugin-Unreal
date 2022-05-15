@@ -15,7 +15,7 @@ public:
 	virtual void ShutdownModule() override;
 
 	static inline FEpinePluginModule& Get() {
-		return FModuleManager::LoadModuleChecked<FEpinePluginModule>("Epine");
+		return FModuleManager::LoadModuleChecked<FEpinePluginModule>("EpinePlugin");
 	}
 
 	// virtual TSharedPtr<FEpineNative> NewValidNativePointer() { return nullptr; };

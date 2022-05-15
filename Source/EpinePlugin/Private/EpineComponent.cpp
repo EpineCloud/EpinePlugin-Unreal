@@ -12,6 +12,7 @@ UEpineComponent::UEpineComponent()
 	PrimaryComponentTick.bCanEverTick = true;
 
 	// ...
+	bWantsInitializeComponent = true;
 }
 
 void UEpineComponent::InitializeComponent()
@@ -19,6 +20,8 @@ void UEpineComponent::InitializeComponent()
 	Super::InitializeComponent();
 
 	GEngine->AddOnScreenDebugMessage(-1, 10.0, FColor::White, FString("InitializeComponent -> Define NativeClient"));
+	UE_LOG(LogTemp, Warning, TEXT("InitializeComponent -> Define NativeClient"));
+
 	NativeClient = FEpinePluginModule::Get().NewValidNativePointer();
 }
 
@@ -28,6 +31,7 @@ void UEpineComponent::BeginPlay()
 	Super::BeginPlay();
 
 	GEngine->AddOnScreenDebugMessage(-1, 10.0, FColor::White, FString("BeginPlay -> Init"));
+	UE_LOG(LogTemp, Warning, TEXT("BeginPlay -> Init"));
 
 	NativeClient->OnInitCallback = [this]()
 	{

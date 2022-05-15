@@ -7,7 +7,7 @@ FEpineNative::FEpineNative() {
 }
 
 void FEpineNative::InitPrivateClient() {
-  PrivateClient = MakeShareable(new Epine::Client(Epine::Client::Environment::LOCAL));
+  PrivateClient = MakeShareable(new Epine::Client());
 }
 
 void FEpineNative::ClearAllCallbacks() {
@@ -15,9 +15,9 @@ void FEpineNative::ClearAllCallbacks() {
 }
 
 void FEpineNative::Init() {
-  // UE_LOG(Epine, Log, TEXT("Epine: Initializing..."));
+  UE_LOG(Epine, Log, TEXT("EpineNative: init()"));
   PrivateClient->init([&]{
-    // UE_LOG(Epine, Log, TEXT("SocketIO Initialized"));
+    UE_LOG(Epine, Log, TEXT("EpineNative: init().callback"));
     if (OnInitCallback) {
       OnInitCallback();
     }
