@@ -20,6 +20,12 @@ public:
 	UPROPERTY(BlueprintAssignable, Category = "Events")
 	FCallbackSignature OnInit;
 
+	UPROPERTY(BlueprintAssignable, Category = "Events")
+	FCallbackSignature OnWalletConnected;
+
+	UFUNCTION()
+	void ConnectWallet();
+
 	// Sets default values for this component's properties
 	UEpineComponent();
 

@@ -22,7 +22,33 @@ void UEpineComponent::InitializeComponent()
 	GEngine->AddOnScreenDebugMessage(-1, 10.0, FColor::White, FString("InitializeComponent -> Define NativeClient"));
 	UE_LOG(LogTemp, Warning, TEXT("InitializeComponent -> Define NativeClient"));
 
+	// Initialize NativeClient
 	NativeClient = FEpinePluginModule::Get().NewValidNativePointer();
+
+	// Assign callbacks
+	NativeClient->OnInitCallback = [this](){
+		GEngine->AddOnScreenDebugMessage(-1, 10.0, FColor::White, FString("NativeClient -> OnInitCallback"));
+		UE_LOG(LogTemp, Warning, TEXT("NativeClient -> OnInitCallback"));
+
+		OnInit.Broadcast();
+	};
+	NativeClient->OnWalletConnectedCallback = [this](){
+		GEngine->AddOnScreenDebugMessage(-1, 10.0, FColor::White, FString("NativeClient -> OnWalletConnectedCallback"));
+		UE_LOG(LogTemp, Warning, TEXT("NativeClient -> OnWalletConnectedCallback"));
+
+		OnWalletConnected.Broadcast();
+	};
+
+	// Bind delegates
+	// TODO: Remove, should be done somehow else
+	OnInit.AddDynamic(this, &UEpineComponent::ConnectWallet);
+}
+
+// TODO: Remove, should be done somehow else
+void UEpineComponent::ConnectWallet() {
+	FString connection_uri = NativeClient->ConnectWallet();
+	GEngine->AddOnScreenDebugMessage(-1, 10.0, FColor::White, FString("NativeClient -> ConnectWallet: ") + connection_uri);
+	UE_LOG(LogTemp, Warning, TEXT("NativeClient -> ConnectWallet"));
 }
 
 // Called when the game starts
@@ -32,13 +58,6 @@ void UEpineComponent::BeginPlay()
 
 	GEngine->AddOnScreenDebugMessage(-1, 10.0, FColor::White, FString("BeginPlay -> Init"));
 	UE_LOG(LogTemp, Warning, TEXT("BeginPlay -> Init"));
-
-	NativeClient->OnInitCallback = [this]()
-	{
-		if (NativeClient.IsValid()) {
-			OnInit.Broadcast();
-		}
-	};
 
 	NativeClient->Init();
 }
