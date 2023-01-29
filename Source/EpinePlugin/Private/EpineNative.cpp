@@ -16,10 +16,12 @@ void FEpineNative::ClearAllCallbacks() {
 
 void FEpineNative::Init() {
   UE_LOG(LogTemp, Log, TEXT("EpineNative: init()"));
-  PrivateClient->init([&]{
+  auto on_init_callback = [&]{
     UE_LOG(LogTemp, Log, TEXT("EpineNative: init().callback"));
     if (OnInitCallback) {
       OnInitCallback();
     }
-  });
+  };
+  PrivateClient->set_on_init_callback(on_init_callback);
+  PrivateClient->init();
 }
