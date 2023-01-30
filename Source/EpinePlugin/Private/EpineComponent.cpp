@@ -38,17 +38,13 @@ void UEpineComponent::InitializeComponent()
 
 		OnWalletConnected.Broadcast();
 	};
-
-	// Bind delegates
-	// TODO: Remove, should be done somehow else
-	OnInit.AddDynamic(this, &UEpineComponent::ConnectWallet);
 }
 
-// TODO: Remove, should be done somehow else
-void UEpineComponent::ConnectWallet() {
+FString UEpineComponent::ConnectWallet() {
 	FString connection_uri = NativeClient->ConnectWallet();
 	GEngine->AddOnScreenDebugMessage(-1, 10.0, FColor::White, FString("NativeClient -> ConnectWallet: ") + connection_uri);
 	UE_LOG(LogTemp, Warning, TEXT("NativeClient -> ConnectWallet"));
+	return connection_uri;
 }
 
 // Called when the game starts

@@ -11,7 +11,7 @@
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FCallbackSignature);
 
-UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
+UCLASS(Blueprintable, ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class EPINEPLUGIN_API UEpineComponent : public UActorComponent
 {
 	GENERATED_BODY()
@@ -23,8 +23,8 @@ public:
 	UPROPERTY(BlueprintAssignable, Category = "Events")
 	FCallbackSignature OnWalletConnected;
 
-	UFUNCTION()
-	void ConnectWallet();
+	UFUNCTION(BlueprintCallable, DisplayName = "Request Wallet Connection")
+	FString ConnectWallet();
 
 	// Sets default values for this component's properties
 	UEpineComponent();
