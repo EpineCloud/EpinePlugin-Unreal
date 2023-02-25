@@ -22,11 +22,11 @@ void FEpineNative::Init() {
   PrivateClient->init();
 }
 
-FString FEpineNative::ConnectWallet() {
+FString FEpineNative::ConnectWallet(Epine::Constants::Chains::Type type) {
   UE_LOG(LogTemp, Log, TEXT("EpineNative: ConnectWallet()"));
 
   PrivateClient->auth->wallet->on(Epine::Auth::Wallet::Event::CONNECTED, OnWalletConnectedCallback);
-  std::string connection_uri = PrivateClient->auth->wallet->connect();
+  std::string connection_uri = PrivateClient->auth->wallet->connect(type);
 
   return FString(connection_uri.c_str());
 }

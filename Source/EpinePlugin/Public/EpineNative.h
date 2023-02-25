@@ -15,7 +15,7 @@ class EPINEPLUGIN_API FEpineNative {
     void ClearAllCallbacks();
 
     void Init();
-    FString ConnectWallet();
+    FString ConnectWallet(Epine::Constants::Chains::Type type);
   
   protected:
     void SetupInternalCallbacks();

@@ -40,8 +40,8 @@ void UEpineComponent::InitializeComponent()
 	};
 }
 
-FString UEpineComponent::ConnectWallet() {
-	FString connection_uri = NativeClient->ConnectWallet();
+FString UEpineComponent::ConnectWallet(ChainType type) {
+	FString connection_uri = NativeClient->ConnectWallet(static_cast<Epine::Constants::Chains::Type>(type));
 	GEngine->AddOnScreenDebugMessage(-1, 10.0, FColor::White, FString("NativeClient -> ConnectWallet: ") + connection_uri);
 	UE_LOG(LogTemp, Warning, TEXT("NativeClient -> ConnectWallet"));
 	return connection_uri;

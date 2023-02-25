@@ -11,6 +11,15 @@
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FCallbackSignature);
 
+UENUM(BlueprintType)
+enum class ChainType : uint8
+{
+	EVM = static_cast<uint8>(Epine::Constants::Chains::Type::EVM) UMETA(DisplayName = "EVM (Ethereum, Polygon, zkSync, etc.)"),
+	TVM = static_cast<uint8>(Epine::Constants::Chains::Type::TVM) UMETA(DisplayName = "TVM (TON)"),
+
+	None = 0 UMETA(DisplayName = "Not implemented")
+};
+
 UCLASS(Blueprintable, ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class EPINEPLUGIN_API UEpineComponent : public UActorComponent
 {
@@ -24,7 +33,7 @@ public:
 	FCallbackSignature OnWalletConnected;
 
 	UFUNCTION(BlueprintCallable, DisplayName = "Request Wallet Connection")
-	FString ConnectWallet();
+	FString ConnectWallet(ChainType type);
 
 	// Sets default values for this component's properties
 	UEpineComponent();
