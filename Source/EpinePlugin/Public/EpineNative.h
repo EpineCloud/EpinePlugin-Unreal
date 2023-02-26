@@ -15,7 +15,8 @@ class EPINEPLUGIN_API FEpineNative {
     void ClearAllCallbacks();
 
     void Init();
-    FString ConnectWallet(Epine::Constants::Chains::Type type);
+    std::string ConnectWallet(Epine::Constants::Chains::Type type);
+    std::vector<Epine::Tokens::Token> GetAddressBalance(std::string address, Epine::Constants::Chains::Type type, Epine::Constants::Chains::ID id);
   
   protected:
     void SetupInternalCallbacks();

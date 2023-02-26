@@ -21,6 +21,36 @@ enum class ChainType : uint8
 	None = 0 UMETA(DisplayName = "Not implemented")
 };
 
+UENUM(BlueprintType)
+enum class ChainId : uint8
+{
+	EVM_ETHEREUM = static_cast<uint8>(Epine::Constants::Chains::ID::EVM_ETHEREUM) UMETA(DisplayName = "EVM: Ethereum"),
+	EVM_POLYGON = static_cast<uint8>(Epine::Constants::Chains::ID::EVM_POLYGON) UMETA(DisplayName = "EVM: Polygon"),
+	EVM_TESTNET_ZK_SYNC = static_cast<uint8>(Epine::Constants::Chains::ID::EVM_TESTNET_ZK_SYNC) UMETA(DisplayName = "EVM: Testnet: zkSync"),
+	None = static_cast<uint8>(Epine::Constants::Chains::ID::None) UMETA(DisplayName = "Other (no chain ID)")
+};
+
+#pragma pack(push, 1)
+USTRUCT(BlueprintType)
+struct FToken
+{
+	GENERATED_BODY()
+
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FString address;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FString symbol;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float balance;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool native;
+};
+#pragma pack(pop)
+
 UCLASS(Blueprintable, ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class EPINEPLUGIN_API UEpineComponent : public UActorComponent
 {
@@ -35,6 +65,9 @@ public:
 
 	UFUNCTION(BlueprintCallable, DisplayName = "Request Wallet Connection")
 	FString ConnectWallet(ChainType type);
+
+	UFUNCTION(BlueprintCallable, DisplayName = "Get address balance")
+	TArray<FToken> GetAddressBalance(FString address, ChainType type, ChainId id);
 
 	// Sets default values for this component's properties
 	UEpineComponent();

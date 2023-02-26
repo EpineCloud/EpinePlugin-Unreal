@@ -56,10 +56,31 @@ void UEpineComponent::InitializeComponent()
 }
 
 FString UEpineComponent::ConnectWallet(ChainType type) {
-	FString connection_uri = NativeClient->ConnectWallet(static_cast<Epine::Constants::Chains::Type>(type));
+	std::string connection_uri_str = NativeClient->ConnectWallet(static_cast<Epine::Constants::Chains::Type>(type));
+	FString connection_uri = FString(connection_uri_str.c_str());
 	GEngine->AddOnScreenDebugMessage(-1, 10.0, FColor::White, FString("NativeClient -> ConnectWallet: ") + connection_uri);
 	UE_LOG(LogTemp, Warning, TEXT("NativeClient -> ConnectWallet"));
 	return connection_uri;
+}
+
+TArray<FToken> UEpineComponent::GetAddressBalance(FString address, ChainType type, ChainId id) {
+	std::vector<Epine::Tokens::Token> tokens_std = NativeClient->GetAddressBalance(
+		std::string(TCHAR_TO_UTF8(*address)),
+		static_cast<Epine::Constants::Chains::Type>(type),
+		static_cast<Epine::Constants::Chains::ID>(id)
+	);
+
+	TArray<FToken> tokens;
+	for (int32 i = 0; i < tokens_std.size(); i++) {
+		FToken token;
+		token.address = FString(tokens_std[i].address.c_str());
+		token.symbol = FString(tokens_std[i].symbol.c_str());
+		token.balance = tokens_std[i].balance;
+		token.native = tokens_std[i].native;
+		tokens.Add(token);
+	}
+
+	return tokens;
 }
 
 // Called when the game starts
