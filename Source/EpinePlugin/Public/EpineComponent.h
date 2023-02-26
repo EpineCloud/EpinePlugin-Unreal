@@ -10,6 +10,7 @@
 #include "EpineComponent.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FCallbackSignature);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCallbackSignatureWithStringArray, const TArray<FString>&, StringArray);
 
 UENUM(BlueprintType)
 enum class ChainType : uint8
@@ -30,7 +31,7 @@ public:
 	FCallbackSignature OnInit;
 
 	UPROPERTY(BlueprintAssignable, Category = "Events")
-	FCallbackSignature OnWalletConnected;
+	FCallbackSignatureWithStringArray OnWalletConnected;
 
 	UFUNCTION(BlueprintCallable, DisplayName = "Request Wallet Connection")
 	FString ConnectWallet(ChainType type);

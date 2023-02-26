@@ -32,11 +32,26 @@ void UEpineComponent::InitializeComponent()
 
 		OnInit.Broadcast();
 	};
-	NativeClient->OnWalletConnectedCallback = [this](){
+	NativeClient->OnWalletConnectedCallback = [this](std::string addresses_std[]){
 		GEngine->AddOnScreenDebugMessage(-1, 10.0, FColor::White, FString("NativeClient -> OnWalletConnectedCallback"));
 		UE_LOG(LogTemp, Warning, TEXT("NativeClient -> OnWalletConnectedCallback"));
 
-		OnWalletConnected.Broadcast();
+		FString message = FString(("Wallet #0: " + addresses_std[0]).c_str());
+		GEngine->AddOnScreenDebugMessage(-1, 10.0, FColor::White, message);
+		UE_LOG(LogTemp, Warning, TEXT("%s"), *message);
+
+		TArray<FString> Addresses;
+		std::string* p = addresses_std;
+    while (!p->empty())
+    {
+			const std::string& address_std = *p;
+			FString Address = FString(address_std.c_str());
+			Addresses.Add(Address);
+			
+			++p;
+    }
+
+		OnWalletConnected.Broadcast(Addresses);
 	};
 }
 

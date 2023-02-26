@@ -10,7 +10,7 @@ class EPINEPLUGIN_API FEpineNative {
 
     // Native callbacks
     TFunction<void()> OnInitCallback;
-    TFunction<void()> OnWalletConnectedCallback;
+    TFunction<void(std::string[])> OnWalletConnectedCallback;
 
     void ClearAllCallbacks();
 
