@@ -27,7 +27,7 @@ enum class ChainId : uint8
 	EVM_ETHEREUM = static_cast<uint8>(Epine::Constants::Chains::ID::EVM_ETHEREUM) UMETA(DisplayName = "EVM: Ethereum"),
 	EVM_POLYGON = static_cast<uint8>(Epine::Constants::Chains::ID::EVM_POLYGON) UMETA(DisplayName = "EVM: Polygon"),
 	EVM_TESTNET_ZK_SYNC = static_cast<uint8>(Epine::Constants::Chains::ID::EVM_TESTNET_ZK_SYNC) UMETA(DisplayName = "EVM: Testnet: zkSync"),
-	None = static_cast<uint8>(Epine::Constants::Chains::ID::None) UMETA(DisplayName = "Other (no chain ID)")
+	None = 0 UMETA(DisplayName = "Other (no chain ID)")
 };
 
 #pragma pack(push, 1)
