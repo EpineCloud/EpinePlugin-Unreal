@@ -14,7 +14,7 @@ Architecture is taken from https://github.com/getnamo/SocketIOClient-Unreal
 1) Clone repository 
 
 ```
-  git clone --recurse-submodules -j8  git@github.com:EpineCloud/EpinePlugin-Unreal.git
+  git clone --recurse-submodules -j8 https://github.com/EpineCloud/EpinePlugin-Unreal.git
 ```
 
 2) Follow dependency building steps described in `Source/ThirdPartyLibraries/EpineSDK/README.md`
